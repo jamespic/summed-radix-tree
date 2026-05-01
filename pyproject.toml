@@ -6,6 +6,7 @@ build-backend = "maturin"
 name = "summed-radix-tree"
 requires-python = ">=3.10"
 readme = "README.md"
+license = "MIT"
 classifiers = [
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
