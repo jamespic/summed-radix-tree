@@ -18,4 +18,4 @@ def test_happy_path():
     assert tree == SummedRadixTree({1: 10, 2: 20, 3: 30})
     assert str(tree) == "SummedRadixTree({1: 10, 2: 20, 3: 30})"
 
-    assert tree.total() == 60
+    assert tree.total == 60
