@@ -84,6 +84,10 @@ mod summed_radix_tree {
             format!("SummedRadixTree({{{}}})", elements.join(", "))
         }
 
+        fn __repr__(&self) -> String {
+            self.__str__()
+        }
+
         fn __len__(&self) -> usize {
             self.__iter__().0.count()
         }
