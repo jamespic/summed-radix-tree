@@ -8,11 +8,9 @@ edition = "2024"
 name = "summed_radix_tree"
 crate-type = ["cdylib"]
 
-[profile.profiling]
-inherits = "release"
-lto = "thin"
+[profile.release]
+frame-pointers = "force-on"  # Everyone deserves frame pointers
 debug = "line-tables-only"
-frame-pointers = "force-on"
 strip = false
 
 [dependencies.pyo3]

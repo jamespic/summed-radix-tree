@@ -87,6 +87,10 @@ mod summed_radix_tree {
         fn __len__(&self) -> usize {
             self.__iter__().0.count()
         }
+
+        fn __sizeof__(&self) -> usize {
+            size_of::<Self>() + self.0._estimate_size_fudging_refcounts()
+        }
     }
 
     #[pyclass]
@@ -276,6 +280,23 @@ mod summed_radix_tree {
                 hasher.update(&bit.to_le_bytes());
             }
             hasher.digest128()
+        }
+
+        fn _estimate_size(&self) -> usize {
+            match self {
+                Self::Empty => 0,
+                Self::Leaf { .. } => size_of::<Self>(),
+                Self::Branch { children, .. } => {
+                    size_of::<Self>()
+                    + children.iter().map(
+                        |child| child._estimate_size_fudging_refcounts()
+                    ).sum::<usize>()
+                }
+            }
+        }
+
+        fn _estimate_size_fudging_refcounts(self: &Arc<Self>) -> usize {
+            return (self._estimate_size() / Arc::strong_count(&self)) + size_of::<Arc<()>>();
         }
     }
 
